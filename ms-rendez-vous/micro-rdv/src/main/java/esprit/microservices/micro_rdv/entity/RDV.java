@@ -16,12 +16,19 @@ public class RDV implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="idRDV")
     private Long idRDV;
-    private String patientId;
-    private String medId;
-    @Temporal (TemporalType.DATE)
-    private Date dateRDV;
-    @Temporal (TemporalType.DATE)
-    private Date heureRDV;
+
+    private String dateRDV;
+    private String heureRDV;
     @Enumerated(EnumType.STRING)
     private Status status;
+
+    private String patientId;
+    private String patientFirstName;
+    private String patientLastName;
+    private String patientPhoneNumber;
+    private String patientEmail;
+
+    private String medecinId;
+    private String medecinFirstName;
+    private String medecinLastName;
 }

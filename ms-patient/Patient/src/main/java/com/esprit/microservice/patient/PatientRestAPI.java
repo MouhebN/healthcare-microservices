@@ -40,7 +40,6 @@ public class PatientRestAPI {
         Patient updatedPatient = patientService.updatePatient(patientId, patient);
         return new ResponseEntity<>(updatedPatient, HttpStatus.OK);
     }
-
     // Delete a patient by ID
     @DeleteMapping("/remove-patient/{id}")
     public ResponseEntity<String> deletePatient(@PathVariable("id") Long patientId) {
