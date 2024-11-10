@@ -1,9 +1,9 @@
 package esprit.microservices.micro_rdv.service;
 
-import esprit.microservices.micro_rdv.Dto.MedecinDTO;
+import esprit.microservices.micro_rdv.client.MedecinDTO;
 import esprit.microservices.micro_rdv.client.MedecinClient;
 import esprit.microservices.micro_rdv.client.PatientClient;
-import esprit.microservices.micro_rdv.Dto.PatientDTO;
+import esprit.microservices.micro_rdv.client.PatientDTO;
 import esprit.microservices.micro_rdv.repository.RDVRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;

@@ -1,6 +1,5 @@
 package esprit.microservices.micro_rdv.client;
 
-import esprit.microservices.micro_rdv.Dto.MedecinDTO;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

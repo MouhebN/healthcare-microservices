@@ -5,7 +5,6 @@ import lombok.*;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
-import java.util.UUID;
 
 @Entity
 @Getter
@@ -19,6 +18,14 @@ public class Facture implements Serializable {
     private Long id;
 
     private String patientId;
+    private String patientFirstName;
+    private String patientLastName;
+    private String patientPhoneNumber;
+    private String patientEmail;
+
+    private String medecinId;
+    private String medecinFirstName;
+    private String medecinLastName;
 
     private double montant;
 

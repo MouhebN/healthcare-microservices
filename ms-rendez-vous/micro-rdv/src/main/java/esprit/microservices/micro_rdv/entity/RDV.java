@@ -1,6 +1,5 @@
 package esprit.microservices.micro_rdv.entity;
 import java.io.Serializable;
-import java.util.*;
 
 import jakarta.persistence.*;
 import lombok.*;

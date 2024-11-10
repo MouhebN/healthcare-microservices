@@ -1,9 +1,8 @@
 package esprit.microservices.micro_rdv.service;
 
 import esprit.microservices.micro_rdv.entity.RDV;
-
 import java.util.List;
-import java.util.UUID;
+
 
 public interface IRDVService {
     List<RDV> retrieveAllRDVs();

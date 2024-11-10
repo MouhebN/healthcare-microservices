@@ -1,12 +1,12 @@
 package esprit.microservices.facturation.Controllers;
 
 import esprit.microservices.facturation.Entity.Paiement;
-import esprit.microservices.facturation.Service.PaiementService;
+import esprit.microservices.facturation.Services.PaiementService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.UUID;
+
 
 @RestController
 @RequestMapping("/paiements")

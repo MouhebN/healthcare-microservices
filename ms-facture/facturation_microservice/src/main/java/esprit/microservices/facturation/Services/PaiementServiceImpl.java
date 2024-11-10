@@ -1,14 +1,13 @@
-package esprit.microservices.facturation.ServiceImpl;
+package esprit.microservices.facturation.Services;
 
 import esprit.microservices.facturation.Entity.Paiement;
 import esprit.microservices.facturation.Repository.PaiementRepository;
-import esprit.microservices.facturation.Service.PaiementService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
+
 
 @Service
 public class PaiementServiceImpl implements PaiementService {

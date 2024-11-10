@@ -1,12 +1,11 @@
 package esprit.microservices.facturation.Controllers;
 
 import esprit.microservices.facturation.Entity.Facture;
-import esprit.microservices.facturation.Service.FactureService;
+import esprit.microservices.facturation.Services.FactureService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.UUID;
 
 @RestController
 @RequestMapping("/factures")

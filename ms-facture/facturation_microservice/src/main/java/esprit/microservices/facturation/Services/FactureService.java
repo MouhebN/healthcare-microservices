@@ -1,8 +1,7 @@
-package esprit.microservices.facturation.Service;
+package esprit.microservices.facturation.Services;
 
 import esprit.microservices.facturation.Entity.Facture;
 import java.util.List;
-import java.util.UUID;
 
 public interface FactureService {
     Facture saveFacture(Facture facture);

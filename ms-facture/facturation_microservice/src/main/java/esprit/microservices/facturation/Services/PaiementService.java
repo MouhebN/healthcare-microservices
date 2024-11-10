@@ -1,8 +1,8 @@
-package esprit.microservices.facturation.Service;
+package esprit.microservices.facturation.Services;
 
 import esprit.microservices.facturation.Entity.Paiement;
 import java.util.List;
-import java.util.UUID;
+
 
 public interface PaiementService {
     Paiement savePaiement(Paiement paiement);
