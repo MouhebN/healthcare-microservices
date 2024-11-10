@@ -43,6 +43,14 @@ public class RDVServiceImpl implements IRDVService{
         rdv.setMedecinFirstName(medecin.firstName());
         rdv.setMedecinLastName(medecin.lastName());
 
+        // Check Availability for the Medecin
+        boolean isAvailable = medecinClient.checkAvailability(
+                UUID.fromString(rdv.getMedecinId()), rdv.getDateRDV(), rdv.getHeureRDV()
+        );
+
+        if (!isAvailable) {
+            return null;
+        }
         return rdvRepository.save(rdv);
     }
 

@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeParseException;
 import java.util.List;
@@ -87,7 +88,7 @@ public class AvailabilityService {
                 .orElseThrow(() -> new ResourceNotFoundException("Availability not found with id: " + id));
 
 
-        existingAvailability.setDayOfWeek(availabilityDTO.dayOfWeek());
+        existingAvailability.setAvailableDate(availabilityDTO.availableDate());
 
         updateTimeSlots(existingAvailability, availabilityDTO.timeSlots());
 
@@ -181,4 +182,32 @@ public class AvailabilityService {
             super(message);
         }
     }
+
+    public boolean checkAvailabilityForDateAndTime(UUID medecinId, String daterdv, String heureRDV) {
+        Optional<MedecinEntity> medecin = medecinRepository.findById(medecinId);
+        if (!medecin.isPresent()) {
+            throw new IllegalArgumentException("Medecin with ID " + medecinId + " not found.");
+        }
+
+        List<AvailabilityEntity> availabilityList = medecin.get().getAvailability();
+        LocalDate requestedDate = LocalDate.parse(daterdv);  // Parse the date string to LocalDate
+
+        AvailabilityEntity matchingAvailability = availabilityList.stream()
+                .filter(availability -> availability.getAvailableDate().equals(requestedDate))  // Compare LocalDate directly
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("No availability found for the date " + daterdv));
+
+        LocalTime requestedTime = LocalTime.parse(heureRDV);  // Parse time string to LocalTime
+
+        boolean isTimeSlotAvailable = matchingAvailability.getTimeSlots().stream()
+                .anyMatch(timeSlot -> {
+                    LocalTime startTime = LocalTime.parse(timeSlot.getStartTime());
+                    LocalTime endTime = LocalTime.parse(timeSlot.getEndTime());
+                    return !requestedTime.isBefore(startTime) && !requestedTime.isAfter(endTime);
+                });
+
+        return isTimeSlotAvailable;
+    }
+
+
 }

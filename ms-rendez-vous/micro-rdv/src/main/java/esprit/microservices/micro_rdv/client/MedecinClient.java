@@ -4,6 +4,7 @@ import esprit.microservices.micro_rdv.Dto.MedecinDTO;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.UUID;
 
@@ -12,4 +13,9 @@ public interface MedecinClient {
 
     @GetMapping("/v1/medecins/{id}")
     MedecinDTO getMedecinById(@PathVariable UUID id);
+
+    @GetMapping("/v1/availability/check/{medecinId}")
+    boolean checkAvailability(@PathVariable UUID medecinId,
+                              @RequestParam String daterdv,
+                              @RequestParam String heureRDV);
 }

@@ -4,8 +4,10 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
 
 import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
@@ -18,9 +20,8 @@ import java.util.UUID;
 public class AvailabilityEntity {
     @Id
     private UUID id;
-
-    @Enumerated(EnumType.STRING)
-    private DayOfWeek dayOfWeek;
+    @NonNull
+    private LocalDate availableDate;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "availability_id")

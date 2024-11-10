@@ -45,4 +45,18 @@ public class AvailabilityController {
         AvailabilityDTO updatedAvailability = availabilityService.updateAvailability(availabilityId, availabilityDTO);
         return ResponseEntity.ok(updatedAvailability);
     }
+
+    @GetMapping("/check/{medecinId}")
+    public ResponseEntity<Boolean> checkAvailability(
+            @PathVariable UUID medecinId,
+            @RequestParam String daterdv,
+            @RequestParam String heureRDV) {
+        try {
+            boolean isAvailable = availabilityService.checkAvailabilityForDateAndTime(medecinId, daterdv, heureRDV);
+            return ResponseEntity.ok(isAvailable);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(false);  // Return false if not found
+        }
+    }
+
 }
