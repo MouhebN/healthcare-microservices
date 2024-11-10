@@ -27,7 +27,7 @@ public class Facture implements Serializable {
     private String medecinFirstName;
     private String medecinLastName;
 
-    private double montant;
+    private String montant;
 
     @ElementCollection
     private List<String> services;

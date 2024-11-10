@@ -14,16 +14,16 @@ public class ApiGatewayServerApplication {
     public static void main(String[] args) {
         SpringApplication.run(ApiGatewayServerApplication.class, args);
     }
+
     @Bean
     public RouteLocator gatewayRoutes(RouteLocatorBuilder builder) {
         return builder.routes()
-                /////////////  medecin-ms ///////////////
+
                 .route("availability", r -> r.path("/v1/availability/**")
                         .uri("lb://medecin-service"))
                 .route("medecins", r -> r.path("/v1/medecins/**")
                         .uri("lb://medecin-service"))
 
-                /////////////  facturation-ms ///////////////
                 .route("factures", r -> r.path("/factures/**")
                         .uri("lb://facturation"))
                 .route("paiements", r -> r.path("/paiements/**")
@@ -32,7 +32,8 @@ public class ApiGatewayServerApplication {
                         .uri("lb://rdv-service"))
                 .route("patients", r -> r.path("/patients/**")
                         .uri("lb://patient-service"))
-
+                .route("medicalRecords", r -> r.path("/medicalRecords/**")
+                        .uri("lb://fiche-service"))
                 .build();
     }
 }
