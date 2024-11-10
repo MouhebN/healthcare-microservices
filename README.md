@@ -42,5 +42,6 @@ A comprehensive health management system built using a microservice architecture
 This project was brought to life thanks to the contribution of:
 - [Yasmine Rajhi](https://github.com/yasmineRajhi) : Appointment MicroService
 - [Malek Khelil](https://github.com/mkh-dev) : Patient MicroService
-- [Zied Ghanem](https://github.com/zied-gh) : Doctor MicroService
+- [Zied Ghanem](https://github.com/zied-gh) : invoice MicroService
 - [Ons Hamzaoui](https://github.com/onshamzaoui) : Medical record MicroService
+  
