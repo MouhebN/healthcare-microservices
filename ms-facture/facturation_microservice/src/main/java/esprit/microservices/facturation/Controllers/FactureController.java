@@ -24,6 +24,7 @@ public class FactureController {
         return factureService.getFactureById(id);
     }
 
+
     @GetMapping
     public List<Facture> getAllFactures() {
         return factureService.getAllFactures();
@@ -33,6 +34,7 @@ public class FactureController {
     public Facture updateFacture(@PathVariable Long id, @RequestBody Facture facture) {
         return factureService.updateFacture(id, facture);
     }
+
 
     @DeleteMapping("/{id}")
     public void deleteFacture(@PathVariable Long id) {

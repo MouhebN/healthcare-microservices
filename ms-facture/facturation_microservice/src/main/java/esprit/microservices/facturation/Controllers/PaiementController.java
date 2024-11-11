@@ -12,6 +12,9 @@ import java.util.List;
 @RequestMapping("/paiements")
 public class PaiementController {
 
+
+
+
     @Autowired
     private PaiementService paiementService;
 
@@ -33,6 +36,8 @@ public class PaiementController {
     @PutMapping("/{id}")
     public Paiement updatePaiement(@PathVariable Long id, @RequestBody Paiement paiement) {
         return paiementService.updatePaiement(id, paiement);
+
+
     }
 
     @DeleteMapping("/{id}")
