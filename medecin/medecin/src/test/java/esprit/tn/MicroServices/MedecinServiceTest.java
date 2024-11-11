@@ -4,13 +4,14 @@ import esprit.microservices.medecin.DTO.CreateMedecinRequest;
 import esprit.microservices.medecin.DTO.CreateMedecinResponse;
 import esprit.microservices.medecin.Entity.MedecinEntity;
 import esprit.microservices.medecin.Mappers.MedecinMapper;
+import esprit.microservices.medecin.MedecinApplication;
 import esprit.microservices.medecin.Repository.MedecinRepository;
 import esprit.microservices.medecin.Services.MedecinService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.util.List;
 import java.util.Optional;
@@ -20,20 +21,21 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.*;
 
+@SpringBootTest(classes= MedecinApplication.class)
 class MedecinServiceTest {
 
-    @Mock
+    @MockBean
     private MedecinRepository medecinRepository;
 
-    @Mock
+    @MockBean
     private MedecinMapper medecinMapper;
 
-    @InjectMocks
+    @Autowired
     private MedecinService medecinService;
 
     @BeforeEach
     void setUp() {
-        MockitoAnnotations.openMocks(this);
+        // No need for MockitoAnnotations.openMocks(this); because @MockBean is managed by Spring
     }
 
     @Test
@@ -68,7 +70,6 @@ class MedecinServiceTest {
         verify(medecinMapper, times(1)).toResponse(medecinEntity);
     }
 
-
     @Test
     void testGetMedecinById() {
         UUID id = UUID.randomUUID();
@@ -97,7 +98,6 @@ class MedecinServiceTest {
     void testGetAllMedecins() {
         MedecinEntity medecinEntity = new MedecinEntity();
 
-        // Create a sample CreateMedecinResponse with required parameters
         CreateMedecinResponse response = new CreateMedecinResponse(
                 UUID.randomUUID(),   // id
                 "John",              // firstName
@@ -119,7 +119,6 @@ class MedecinServiceTest {
         verify(medecinRepository, times(1)).findAll();
         verify(medecinMapper, times(1)).toResponse(medecinEntity);
     }
-
 
     @Test
     void testUpdateMedecin() {
@@ -155,5 +154,4 @@ class MedecinServiceTest {
         verify(medecinRepository, times(1)).save(medecinEntity);
         verify(medecinMapper, times(1)).toResponse(medecinEntity);
     }
-
 }

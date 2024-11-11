@@ -5,37 +5,38 @@ import esprit.microservices.facturation.Client.MedecinDTO;
 import esprit.microservices.facturation.Client.PatientClient;
 import esprit.microservices.facturation.Client.PatientDTO;
 import esprit.microservices.facturation.Entity.Facture;
+import esprit.microservices.facturation.FacturationApplication;
 import esprit.microservices.facturation.Repository.FactureRepository;
 import esprit.microservices.facturation.Services.FactureServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
+@SpringBootTest(classes= FacturationApplication.class)
 class FactureServiceImplTest {
 
-    @Mock
+    @MockBean
     private PatientClient patientClient;
 
-    @Mock
+    @MockBean
     private MedecinClient medecinClient;
 
-    @Mock
+    @MockBean
     private FactureRepository factureRepository;
 
-    @InjectMocks
+    @Autowired
     private FactureServiceImpl factureService;
 
     @BeforeEach
     void setUp() {
-        MockitoAnnotations.openMocks(this);
+        // No need for MockitoAnnotations.openMocks(this); because @MockBean is managed by Spring
     }
 
     @Test
@@ -90,8 +91,6 @@ class FactureServiceImplTest {
         assertEquals(2, result.size());
         verify(factureRepository, times(1)).findAll();
     }
-
-
 
     @Test
     void testUpdateFacture_NotFound() {

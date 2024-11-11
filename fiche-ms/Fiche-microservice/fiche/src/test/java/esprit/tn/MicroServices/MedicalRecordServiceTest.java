@@ -4,14 +4,16 @@ import esprit.microservices.Fiche.Client.MedecinClient;
 import esprit.microservices.Fiche.Client.MedecinDTO;
 import esprit.microservices.Fiche.Client.PatientClient;
 import esprit.microservices.Fiche.Client.PatientDTO;
+import esprit.microservices.Fiche.FicheApplication;
 import esprit.microservices.Fiche.MedicalRecordEntity;
 import esprit.microservices.Fiche.MedicalRecordRepository;
 import esprit.microservices.Fiche.MedicalRecordService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+
 
 import java.util.List;
 import java.util.Optional;
@@ -21,23 +23,25 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
+@SpringBootTest(classes=FicheApplication.class)
+
 class MedicalRecordServiceTest {
 
-    @Mock
+    @MockBean
     private PatientClient patientClient;
 
-    @Mock
+    @MockBean
     private MedecinClient medecinClient;
 
-    @Mock
+    @MockBean
     private MedicalRecordRepository repository;
 
-    @InjectMocks
+    @Autowired
     private MedicalRecordService medicalRecordService;
 
     @BeforeEach
     void setUp() {
-        MockitoAnnotations.openMocks(this);
+        // No need for MockitoAnnotations.openMocks(this); since @MockBean initializes mocks in the Spring context
     }
 
     @Test

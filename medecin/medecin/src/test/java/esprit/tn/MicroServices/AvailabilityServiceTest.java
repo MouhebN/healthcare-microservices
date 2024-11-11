@@ -4,6 +4,7 @@ import esprit.microservices.medecin.DTO.AvailabilityDTO;
 import esprit.microservices.medecin.Entity.AvailabilityEntity;
 import esprit.microservices.medecin.Entity.MedecinEntity;
 import esprit.microservices.medecin.Entity.TimeSlotEntity;
+import esprit.microservices.medecin.MedecinApplication;
 import esprit.microservices.medecin.Repository.AvailabilityRepository;
 import esprit.microservices.medecin.Repository.MedecinRepository;
 import esprit.microservices.medecin.Mappers.AvailabilityMapper;
@@ -11,42 +12,43 @@ import esprit.microservices.medecin.Mappers.TimeSlotMapper;
 import esprit.microservices.medecin.Services.AvailabilityService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.*;
-
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
+@SpringBootTest(classes= MedecinApplication.class)
 class AvailabilityServiceTest {
 
-    @Mock
+    @MockBean
     private AvailabilityRepository availabilityRepository;
-    @Mock
+
+    @MockBean
     private MedecinRepository medecinRepository;
-    @Mock
+
+    @MockBean
     private AvailabilityMapper availabilityMapper;
-    @Mock
+
+    @MockBean
     private TimeSlotMapper timeSlotMapper;
 
-    @InjectMocks
+    @Autowired
     private AvailabilityService availabilityService;
 
     @BeforeEach
     void setUp() {
-        MockitoAnnotations.openMocks(this);
+        // No need for MockitoAnnotations.openMocks(this); because @MockBean is managed by Spring
     }
 
     @Test
     void testCreateAvailability() {
         UUID medecinId = UUID.randomUUID();
 
-        // Adjust the constructor or fields as per the definition of AvailabilityDTO
         AvailabilityDTO availabilityDTO = new AvailabilityDTO(UUID.randomUUID(), LocalDate.now(), new ArrayList<>());
         AvailabilityEntity availabilityEntity = new AvailabilityEntity();
         MedecinEntity medecinEntity = new MedecinEntity();
@@ -92,31 +94,6 @@ class AvailabilityServiceTest {
 
         verify(availabilityRepository, times(1)).delete(availabilityEntity);
     }
-
-    @Test
-    private void validateTimeSlots(List<TimeSlotEntity> timeSlots) {
-        if (timeSlots.isEmpty()) {
-            return;
-        }
-
-        // Validation logic to check for overlaps or format issues
-        for (int i = 0; i < timeSlots.size() - 1; i++) {
-            TimeSlotEntity current = timeSlots.get(i);
-            TimeSlotEntity next = timeSlots.get(i + 1);
-
-            LocalTime currentEnd = LocalTime.parse(current.getEndTime());
-            LocalTime nextStart = LocalTime.parse(next.getStartTime());
-
-            if (!currentEnd.isBefore(nextStart)) {
-                throw new IllegalArgumentException(String.format(
-                        "Time slots cannot overlap: %s-%s overlaps with %s-%s",
-                        current.getStartTime(), current.getEndTime(),
-                        next.getStartTime(), next.getEndTime()
-                ));
-            }
-        }
-    }
-
 
     @Test
     void testCheckAvailabilityForDateAndTime() {

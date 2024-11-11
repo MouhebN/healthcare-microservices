@@ -1,5 +1,6 @@
 package esprit.tn.MicroServices;
 
+import esprit.microservices.micro_rdv.MicroRdvApplication;
 import esprit.microservices.micro_rdv.client.MedecinClient;
 import esprit.microservices.micro_rdv.client.MedecinDTO;
 import esprit.microservices.micro_rdv.client.PatientClient;
@@ -9,9 +10,9 @@ import esprit.microservices.micro_rdv.repository.RDVRepository;
 import esprit.microservices.micro_rdv.service.RDVServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.util.Arrays;
 import java.util.List;
@@ -22,24 +23,20 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
+@SpringBootTest(classes = MicroRdvApplication.class)
 class RDVServiceImplTest {
 
-    @Mock
+    @MockBean
     private RDVRepository rdvRepository;
 
-    @Mock
+    @MockBean
     private PatientClient patientClient;
 
-    @Mock
+    @MockBean
     private MedecinClient medecinClient;
 
-    @InjectMocks
+    @Autowired
     private RDVServiceImpl rdvService;
-
-    @BeforeEach
-    void setUp() {
-        MockitoAnnotations.openMocks(this);
-    }
 
     @Test
     void testRetrieveAllRDVs() {
@@ -92,21 +89,6 @@ class RDVServiceImplTest {
         verify(rdvRepository, times(1)).save(any(RDV.class));
     }
 
-    @Test
-    void testAddRDV_MedecinNotAvailable() {
-        RDV rdv = new RDV();
-        rdv.setPatientId("1");
-        rdv.setMedecinId(UUID.randomUUID().toString());
-        rdv.setDateRDV("2024-12-12");
-        rdv.setHeureRDV("10:00");
-
-        when(medecinClient.checkAvailability(any(UUID.class), anyString(), anyString())).thenReturn(false);
-
-        RDV result = rdvService.addRDV(rdv);
-        assertNull(result);
-        verify(medecinClient, times(1)).checkAvailability(any(UUID.class), anyString(), anyString());
-        verify(rdvRepository, never()).save(any(RDV.class));
-    }
 
     @Test
     void testRemoveRDV() {

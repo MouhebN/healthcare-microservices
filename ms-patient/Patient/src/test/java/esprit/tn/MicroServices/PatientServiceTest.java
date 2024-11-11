@@ -1,13 +1,14 @@
 package esprit.tn.MicroServices;
 
 import com.esprit.microservice.patient.Patient;
+import com.esprit.microservice.patient.PatientApplication;
 import com.esprit.microservice.patient.PatientRepository;
 import com.esprit.microservice.patient.PatientService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 
 import java.util.ArrayList;
@@ -18,18 +19,14 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
+@SpringBootTest(classes = PatientApplication.class)
 class PatientServiceTest {
 
-    @Mock
+    @MockBean
     private PatientRepository patientRepository;
 
-    @InjectMocks
+    @Autowired
     private PatientService patientService;
-
-    @BeforeEach
-    void setUp() {
-        MockitoAnnotations.openMocks(this);
-    }
 
     @Test
     void testAddPatient() {
