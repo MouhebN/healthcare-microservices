@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="fiche-ms" />
+        <module name="Patient" />
+        <module name="micro-rdv" />
+        <module name="Api_Gateway_server" />
+        <module name="facturation" />
+        <module name="eurekaServer" />
+        <module name="medecin" />
+      </profile>
+    </annotationProcessing>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="Api_Gateway_server" options="-parameters" />
+      <module name="Patient" options="-parameters" />
+      <module name="eurekaServer" options="-parameters" />
+      <module name="facturation" options="-parameters" />
+      <module name="fiche-ms" options="-parameters" />
+      <module name="medecin" options="-parameters" />
+      <module name="micro-rdv" options="-parameters" />
+    </option>
+  </component>
+</project>

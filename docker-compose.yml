@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+  eureka-server:
+    container_name: eureka-server
+    build:
+      context: ./eureka-server  
+      dockerfile: Dockerfile      
+    ports:
+      - "8761:8761"
+    networks:
+      - health-network
+
+  api-gateway:
+    container_name: api-gateway
+    build:
+      context: ./api-gateway      
+      dockerfile: Dockerfile       
+    ports:
+      - "8080:8080"
+    networks:
+      - health-network
+    depends_on:
+      - eureka-server
+
+  medecin-service:
+    container_name: medecin-service
+    build:
+      context: ./medecin/medecin    
+      dockerfile: Dockerfile       
+    ports:
+      - "8180:8180"
+    networks:
+      - health-network
+    depends_on:
+      - eureka-server
+
+networks:
+  health-network:
+    driver: bridge
