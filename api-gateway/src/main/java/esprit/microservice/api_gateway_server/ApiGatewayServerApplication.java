@@ -34,6 +34,8 @@ public class ApiGatewayServerApplication {
                         .uri("lb://patient-service"))
                 .route("medicalRecords", r -> r.path("/medicalRecords/**")
                         .uri("lb://fiche-service"))
+                .route("labTestService", r -> r.path("/api/lab-tests/**")
+                        .uri("lb://lab-test-service"))
                 .build();
     }
 }
