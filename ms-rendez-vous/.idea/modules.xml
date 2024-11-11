@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/micro-rdv/micro-rdv.iml" filepath="$PROJECT_DIR$/micro-rdv/micro-rdv.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/ms-rendez-vous.iml" filepath="$PROJECT_DIR$/.idea/ms-rendez-vous.iml" />
     </modules>
   </component>
