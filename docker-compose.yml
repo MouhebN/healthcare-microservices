@@ -1,11 +1,11 @@
-version: '3.8'
 
 services:
   # Eureka Server
   eureka-server:
     image: eureka-server:latest
     container_name: eureka-server
-    build: ./eureka-server  
+    build:
+      context: ./eureka-server  # Assure-toi que le Dockerfile est dans ce répertoire
     ports:
       - "8761:8761"
     networks:
@@ -21,12 +21,15 @@ services:
   api-gateway:
     image: api-gateway:latest
     container_name: api-gateway
-    build: ./api-gateway  
+    build:
+      context: ./api-gateway  # Répertoire contenant le Dockerfile
+      dockerfile: Dockerfile  # Spécifie le fichier Dockerfile
+    ports:
       - "8090:8090"
     depends_on:
       - eureka-server
     environment:
-      - spring.application.name=Api_Gateway_server
+      - spring.application.name=api-gateway
       - server.port=8090
       - eureka.client.service-url.defaultZone=http://eureka-server:8761/eureka/
       - spring.cloud.gateway.discovery.locator.enabled=true
@@ -38,7 +41,8 @@ services:
   medecin-service:
     image: medecin-service:latest
     container_name: medecin-service
-    build: ./medecin-service  
+    build:
+      context: ./medecin  # Répertoire contenant le Dockerfile
     ports:
       - "8180:8180"
     depends_on:
@@ -59,7 +63,8 @@ services:
   facture-service:
     image: facture-service:latest
     container_name: facture-service
-    build: ./facture-service  
+    build:
+      context: ./ms-facture  # Répertoire contenant le Dockerfile
     ports:
       - "8089:8089"
     depends_on:
@@ -80,7 +85,8 @@ services:
   patient-service:
     image: patient-service:latest
     container_name: patient-service
-    build: ./patient-service  
+    build:
+      context: ./ms-patient  # Répertoire contenant le Dockerfile
     ports:
       - "8087:8087"
     depends_on:
@@ -100,7 +106,8 @@ services:
   rdv-service:
     image: rdv-service:latest
     container_name: rdv-service
-    build: ./rdv-service  
+    build:
+      context: ./ms-rendez-vous  # Répertoire contenant le Dockerfile
     ports:
       - "8088:8088"
     depends_on:
@@ -120,7 +127,8 @@ services:
   fiche-service:
     image: fiche-service:latest
     container_name: fiche-service
-    build: ./fiche-service  
+    build:
+      context: ./fiche-ms  # Répertoire contenant le Dockerfile
     ports:
       - "8186:8186"
     depends_on:
